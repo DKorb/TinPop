@@ -3,7 +3,7 @@ name: Build macOS Executable
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build:
@@ -23,6 +23,7 @@ jobs:
       # Instalacja systemowych zależności
       - name: Install system dependencies
         run: |
+          brew install tcl-tk
           brew install portaudio
           brew install ninja meson
 
