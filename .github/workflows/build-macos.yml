@@ -1,0 +1,40 @@
+name: Build macOS Executable
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      # Pobranie kodu źródłowego
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Ustawienie środowiska Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      # Instalacja zależności
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          pip install -r requirements.txt
+
+      # Tworzenie pliku wykonywalnego
+      - name: Build executable
+        run: |
+          pyinstaller --onefile --windowed TinPop.py
+
+      # Przesłanie artefaktu (pliku wykonywalnego)
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: TinPop-macOS
+          path: dist/TinPop
