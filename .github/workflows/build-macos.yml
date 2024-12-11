@@ -23,15 +23,15 @@ jobs:
       # Instalacja systemowych zależności
       - name: Install system dependencies
         run: |
-          brew install portaudio  # Dla PyAudio
-          brew install ninja meson  # Dla narzędzi budowania wymaganych przez numpy i scipy
+          brew install portaudio
+          brew install ninja meson
 
       # Instalacja zależności Python
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip setuptools wheel
           pip install pyinstaller
-          pip install numpy==1.21.6 scipy==1.7.3 pyaudio  # Wymuszenie kompatybilnych wersji
+          pip install -r requirements.txt
 
       # Tworzenie pliku wykonywalnego
       - name: Build executable
