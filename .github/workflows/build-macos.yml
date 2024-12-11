@@ -3,7 +3,8 @@ name: Build macOS Executable
 on:
   push:
     branches:
-      - main
+      - master
+  workflow_dispatch: # Pozwala ręcznie wyzwalać workflow
 
 jobs:
   build:
