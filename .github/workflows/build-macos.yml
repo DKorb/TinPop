@@ -18,14 +18,18 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.9
+          python-version: 3.10
+
+      # Instalacja PortAudio
+      - name: Install PortAudio
+        run: brew install portaudio
 
       # Instalacja zależności
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
-          pip install -r requirements.txt
+          pip install -r requirements.txt --global-option='build_ext' --global-option="-I/usr/local/include" --global-option="-L/usr/local/lib"
 
       # Tworzenie pliku wykonywalnego
       - name: Build executable
