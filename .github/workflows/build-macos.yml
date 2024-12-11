@@ -18,23 +18,20 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.11
+          python-version: 3.10
 
-      # Instalacja PortAudio
-      - name: Install PortAudio
-        run: brew install portaudio
-
-      # Instalacja narzędzi budowania
-      - name: Install build tools
+      # Instalacja systemowych zależności
+      - name: Install system dependencies
         run: |
-          brew install ninja meson
+          brew install portaudio  # Dla PyAudio
+          brew install ninja meson  # Dla narzędzi budowania wymaganych przez numpy i scipy
 
-      # Instalacja zależności
+      # Instalacja zależności Python
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
+          python -m pip install --upgrade pip setuptools wheel
           pip install pyinstaller
-          pip install -r requirements.txt
+          pip install numpy==1.21.6 scipy==1.7.3 pyaudio  # Wymuszenie kompatybilnych wersji
 
       # Tworzenie pliku wykonywalnego
       - name: Build executable
